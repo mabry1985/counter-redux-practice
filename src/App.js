@@ -1,24 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { increment, decrement, signIn } from './actions';
 
 function App() {
+  const counter = useSelector(state => state.counterReducer);
+  const isLogged = useSelector(state => state.isLogged);
+  const dispatch = useDispatch();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+    <button onClick={() => dispatch(signIn())}>
+            Sign in
+    </button>
+    <h2>Counter {counter}</h2>
+    <p onClick={() => dispatch(increment())}>up</p>
+    <p onClick={() => dispatch(decrement())}>down</p>
+     {isLogged ? <h3>Valuable Information I shouldn't see</h3> : ''}
     </div>
   );
 }
